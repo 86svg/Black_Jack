@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# player.rb
 require_relative 'hand'
 
 class Player

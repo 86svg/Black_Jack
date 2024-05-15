@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# hand.rb
 class Hand
   attr_reader :cards
 
