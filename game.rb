@@ -27,7 +27,7 @@ class Game
   private
 
   def ask_player_name
-    puts 'Enter your name:'
+    puts 'Введите ваше имя:'
     gets.chomp
   end
 
@@ -44,9 +44,9 @@ class Game
 
   def player_turn
     loop do
-      puts "Your cards: #{@player.hand} (#{player_points} points)"
-      puts "Dealer's cards: #{@dealer.hidden_hand}"
-      puts 'Choose an action: 1 - Skip, 2 - Add card, 3 - Open cards'
+      puts "Ваши карты: #{@player.hand} (#{player_points} points)"
+      puts "Карты Диллера: #{@dealer.hidden_hand}"
+      puts 'Сделайте выбор: 1 - пропустить ход, 2 - Добавить карту, 3 - Открыть карты'
       case gets.chomp.to_i
       when 1
         break
@@ -54,13 +54,13 @@ class Game
         if @player.hand.cards.size == 2
           @player.hand.add_card(@deck.draw)
         else
-          puts 'You can only add one card.'
+          puts 'вы можете добавить только одну карту'
         end
         break
       when 3
         break
       else
-        puts 'Invalid choice, please try again.'
+        puts 'Неправильный выбор'
       end
       break if @player.hand.cards.size == 3
     end
@@ -71,21 +71,21 @@ class Game
   end
 
   def reveal_cards
-    puts "Your cards: #{@player.hand} (#{player_points} points)"
-    puts "Dealer's cards: #{@dealer.hand} (#{dealer_points} points)"
+    puts "Ваши карты: #{@player.hand} (#{player_points} points)"
+    puts "карты Диллера: #{@dealer.hand} (#{dealer_points} points)"
   end
 
   def settle_bets
     if player_points > 21
-      puts 'You busted! Dealer wins.'
+      puts 'Вы проиграли. Диллер победил!'
     elsif dealer_points > 21 || player_points > dealer_points
-      puts 'You win!'
+      puts 'Поздравляю! Вы выиграли!'
       @player.win(BET_AMOUNT * 2)
     elsif player_points < dealer_points
-      puts 'Dealer wins.'
+      puts 'Диллер выиграл'
       @dealer.win(BET_AMOUNT * 2)
     else
-      puts 'It\'s a tie!'
+      puts 'Ничья'
       @player.win(BET_AMOUNT)
       @dealer.win(BET_AMOUNT)
     end
@@ -100,7 +100,7 @@ class Game
   end
 
   def play_again?
-    puts 'Do you want to play again? (y/n)'
+    puts 'Хотите сыграть еще раз? (y/n)'
     gets.chomp.downcase == 'y'
   end
 end
