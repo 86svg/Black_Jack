@@ -1,17 +1,27 @@
+# frozen_string_literal: true
+
+# player.rb
+require_relative 'hand'
 
 class Player
-  attr_accessor :name, :hand, :bank
+  attr_reader :name, :hand, :bank
 
-  MAX_CARDS = 3
-
-  def initialize(name)
+  def initialize(name, bank = 100)
     @name = name
-    @bank = 100
-    @hand = []
+    @hand = Hand.new
+    @bank = bank
   end
 
-  def bet
-    @bank -= 10
+  def bet(amount)
+    @bank -= amount
+    amount
   end
 
+  def win(amount)
+    @bank += amount
+  end
+
+  def reset_hand
+    @hand = Hand.new
+  end
 end

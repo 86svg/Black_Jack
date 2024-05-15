@@ -1,16 +1,13 @@
-class Dealer
-  attr_accessor :name, :hand, :bank
+# frozen_string_literal: true
 
-  MAX_CARDS = 3
+require_relative 'player'
 
+class Dealer < Player
   def initialize
-    @name = 'Dealer'
-    @bank = 100
-    @hand = []
+    super('Dealer')
   end
 
-  def bet
-    @bank -= 10
+  def hidden_hand
+    @hand.cards.map { '*' }.join(' ')
   end
-
 end
