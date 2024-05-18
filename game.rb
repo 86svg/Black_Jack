@@ -17,7 +17,7 @@ class Game
     loop do
       setup_round
       player_turn
-      dealer_turn unless @player.hand.cards.size == 3
+      dealer_turn unless @player_opened_cards
       reveal_cards
       settle_bets
       break unless play_again?
@@ -40,6 +40,7 @@ class Game
     end
     @player.bet(BET_AMOUNT)
     @dealer.bet(BET_AMOUNT)
+    @player_opened_cards = false
   end
 
   def player_turn
@@ -58,6 +59,8 @@ class Game
         end
         break
       when 3
+        puts "Вы открыли карты"
+        @player_opened_cards = true
         break
       else
         puts 'Неправильный выбор'
@@ -67,7 +70,12 @@ class Game
   end
 
   def dealer_turn
-    @dealer.hand.add_card(@deck.draw) while @dealer.hand.points < 17 && @dealer.hand.cards.size < 3
+    if @dealer.hand.points < 17
+      @dealer.hand.add_card(@deck.draw)
+      puts "Дилер взял карту"
+    else
+      puts "Дилер пропустил ход"
+    end
   end
 
   def reveal_cards
